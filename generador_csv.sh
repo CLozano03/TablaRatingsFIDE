@@ -1,5 +1,5 @@
 #!/bin/bash
-# Genera un archivo CSV con los datos de los archivos de la carpeta actual
+# Genera un archivo CSV con los datos FIDE de los id pasados como argumento
 
 # Comprobacion del paso del archivo con los id
 if [ $# -ne 1 ]; then
