@@ -62,7 +62,7 @@ while IFS= read -r id_FIDE; do
 done < $archivo_ids
 
 #Ordenado por rating
-head -n 1 $archivo_ratings; tail -n +2 $archivo_ratings | sort -t, -k5,5 -r | awk 'BEGIN { FS=OFS="," } NR == 1 { print; next } { print ++contador, $2, $3, $4, $5, $6, $7 }' > ratings_sort.csv
+{ head -n 1 $archivo_ratings; tail -n +2 $archivo_ratings | sort -t, -k5,5 -r | awk 'BEGIN { FS=OFS="," } NR == i { print; next } { $1=++contador; print; }'; } > ratings_sort.csv
 
 rm $archivo_ratings
 rm $archivo_html
