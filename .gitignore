@@ -1,0 +1,6 @@
+#Ids_diagonal (privacidad)
+ids_diagonal.txt
+
+#temporales y .csv generados
+*.tmp
+*.csv
