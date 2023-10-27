@@ -18,10 +18,11 @@ fi
 archivo_ids=$1
 echo '' > html.tmp
 archivo_html="html.tmp"
+archivo_ratings="ratings.csv"
 i=1
 
 #Inicializacion del archivo CSV
-echo "Num,Apellidos_Nombre,ID_FIDE,TITULO,STANDARD,RAPID,BLITZ" > ratings.csv
+echo "Num,Apellidos_Nombre,ID_FIDE,TITULO,STANDARD,RAPID,BLITZ" > $archivo_ratings
 
 function traducir_titulo(){
     titulo_f=$1
@@ -56,10 +57,14 @@ while IFS= read -r id_FIDE; do
     apellidos_nombre=$(cat $archivo_html | grep '<div class="col-lg-8 profile-top-title">' | sed -n 's/.*>\(.*\)<\/div>/\U\1/p' | tr -d '\n' | tr -d ',' | sed 's/ *$//')
     
     #Escritura en el archivo CSV
-    echo -e "$i,$apellidos_nombre,$idFIDE,$titulo,$rating_std,$rating_rapid,$rating_blitz" >> ratings.csv
+    echo -e "$i,$apellidos_nombre,$idFIDE,$titulo,$rating_std,$rating_rapid,$rating_blitz" >> $archivo_ratings
     let i+=1
 done < $archivo_ids
 
+#Ordenado por rating
+head -n 1 $archivo_ratings; tail -n +2 $archivo_ratings | sort -t, -k5,5 -r | awk 'BEGIN { FS=OFS="," } NR == 1 { print; next } { print ++contador, $2, $3, $4, $5, $6, $7 }' > ratings_sort.csv
+
+rm $archivo_ratings
 rm $archivo_html
 
 echo "Finalizado con exito"
