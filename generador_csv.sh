@@ -14,12 +14,11 @@ if [ ! -f $1 ]; then
     exit 1
 fi
 
-archivo_ids=$1
-
 # Variables globales
+archivo_ids=$1
 echo '' > html.tmp
 archivo_html="html.tmp"
-i=0
+i=1
 
 #Inicializacion del archivo CSV
 echo "Num,Apellidos_Nombre,ID_FIDE,TITULO,STANDARD,RAPID,BLITZ" > ratings.csv
@@ -39,6 +38,7 @@ function traducir_titulo(){
     esac
 }
 
+echo "Ejecutando..."
 
 #Lectura del fichero
 while IFS= read -r id_FIDE; do
@@ -56,8 +56,11 @@ while IFS= read -r id_FIDE; do
     apellidos_nombre=$(cat $archivo_html | grep '<div class="col-lg-8 profile-top-title">' | sed -n 's/.*>\(.*\)<\/div>/\U\1/p' | tr -d '\n' | tr -d ',' | sed 's/ *$//')
     
     #Escritura en el archivo CSV
-    echo -e "$i,$apellidos_nombre,$idFIDE,$titulo,$rating_std,$rating_rapid,$rating_blitz" | tee -a ratings.csv
+    echo -e "$i,$apellidos_nombre,$idFIDE,$titulo,$rating_std,$rating_rapid,$rating_blitz" >> ratings.csv
     let i+=1
 done < $archivo_ids
 
 rm $archivo_html
+
+echo "Finalizado con exito"
+exit 0
