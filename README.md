@@ -17,5 +17,5 @@ El archivo devuelto se llamará `ratings_sort.csv`y contendrá la siguiente cabe
 
 Ejemplo de archivo de salida:
 <div align = "center">
-<img src="https://github.com/CLozano03/TablaRatingsFIDE/blob/main/assets/Resultados_Ratings_sort.jpg" width="600" height="200">
+<img src="https://github.com/CLozano03/TablaRatingsFIDE/blob/main/assets/Resultados_Ratings_sort.jpg" width="750" height="200">
 </div>
