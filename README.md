@@ -1,10 +1,11 @@
-## TablaRatingsFIDE
-
+<div align = "center">
+    <h1>TablaRatingsFIDE</h1>
+</div>
 El script `generador_csv.sh` genera un archivo `.csv` con los datos FIDE de los jugadores pasados como argumento al programa: uno por linea.
 
 ***Ejecución:***
 ```
-./generador_csv.sh <archivo_ids>
+./src/generador_csv.sh <ruta_archivo_ids>
 ```
 
 El archivo devuelto se llamará `ratings_sort.csv`y contendrá la siguiente cabecera:
