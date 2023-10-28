@@ -4,3 +4,4 @@ ids_diagonal.txt
 #temporales y .csv generados
 *.tmp
 *.csv
+*.xlsx
