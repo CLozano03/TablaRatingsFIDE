@@ -20,9 +20,14 @@ echo '' > html.tmp
 archivo_html="html.tmp"
 archivo_ratings="ratings.csv"
 i=1
+n_cabeceras=3 #Lineas antes de empezar con los puntos en el .csv
+
+fecha_formateada=$(date +"%e DE %B DE %Y" | tr '[:lower:]' '[:upper:]')
 
 #Inicializacion del archivo CSV
-echo "Num,Apellidos_Nombre,ID_FIDE,TITULO,STANDARD,RAPID,BLITZ" > $archivo_ratings
+echo ",ACTUALIZADO A: $fecha_formateada,,,DIAGONAL ALCORCON" > $archivo_ratings
+echo "   " >> $archivo_ratings
+echo "Num,Apellidos_Nombre,ID_FIDE,TITULO,STANDARD,RAPID,BLITZ,EQUIPO LIGA 23/24,Jugador no activo" >> $archivo_ratings
 
 function traducir_titulo(){
     titulo_f=$1
@@ -62,7 +67,7 @@ while IFS= read -r id_FIDE; do
 done < $archivo_ids
 
 #Ordenado por rating
-{ head -n 1 $archivo_ratings; tail -n +2 $archivo_ratings | sort -t, -k5,5 -r | awk 'BEGIN { FS=OFS="," } NR == i { print; next } { $1=++contador; print; }'; } > ratings_sort.csv
+{ head -n $n_cabeceras $archivo_ratings; tail -n +$((n_cabeceras+1)) $archivo_ratings | sort -t, -k5,7 -r | awk 'BEGIN { FS=OFS=","; contador=0 } { $1=++contador; print; }'; } > ratings_sort.csv
 
 rm $archivo_ratings
 rm $archivo_html
